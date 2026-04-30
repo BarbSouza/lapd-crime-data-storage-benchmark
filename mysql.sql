@@ -40,3 +40,24 @@ LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
 SELECT COUNT(*) FROM crimes;
+
+//Query 1
+SELECT DR_NO, Date_OCC, Area_Name, Crm_Cd_Desc, Weapon_Desc
+FROM crimes
+WHERE Weapon_Desc != ''
+AND Vict_Sex = 'F'
+LIMIT 20;
+
+//Query 2
+SELECT Area_Name, COUNT(*) AS Total_Crimes
+FROM crimes
+GROUP BY Area_Name
+ORDER BY Total_Crimes DESC;
+
+//Query 3
+SELECT Crm_Cd_Desc, COUNT(*) AS Occurrences
+FROM crimes
+WHERE Date_OCC != ''
+GROUP BY Crm_Cd_Desc
+ORDER BY Occurrences DESC
+LIMIT 10;
