@@ -42,11 +42,13 @@ IGNORE 1 ROWS;
 SELECT COUNT(*) FROM crimes;
 
 //Query 1
-SELECT DR_NO, Date_OCC, Area_Name, Crm_Cd_Desc, Weapon_Desc
+SELECT Premis_Desc, COUNT(*) AS Total_Crimes
 FROM crimes
-WHERE Weapon_Desc != ''
-AND Vict_Sex = 'F'
-LIMIT 20;
+WHERE Premis_Desc != ''
+AND Part_1_2 = '1'
+GROUP BY Premis_Desc
+ORDER BY Total_Crimes DESC
+LIMIT 10;
 
 //Query 2
 SELECT Area_Name, COUNT(*) AS Total_Crimes
