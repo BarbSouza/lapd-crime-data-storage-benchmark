@@ -1,3 +1,10 @@
+-- MySQL.sql
+-- MySQL queries for crime data analysis
+--Author: Barbara
+--Dataset: Crime Data from Los Angeles Police Department
+--Description: Creates crimedb, loads crime CSV data, and runs 3 queries
+
+-- Create database and table
 CREATE DATABASE IF NOT EXISTS crimedb;
 USE crimedb;
 
@@ -32,6 +39,7 @@ CREATE TABLE crimes (
     LON VARCHAR(20)
 );
 
+-- Load data from CSV file
 LOAD DATA LOCAL INFILE '/home/hduser/Downloads/Crime_Data.csv'
 INTO TABLE crimes
 FIELDS TERMINATED BY ','
@@ -41,7 +49,16 @@ IGNORE 1 ROWS;
 
 SELECT COUNT(*) FROM crimes;
 
-//Query 1
+-- Query 1: Total crimes per year
+SELECT
+  SUBSTRING(Date_OCC, 7, 4) AS Year,
+  COUNT(*) AS Total_Crimes
+FROM crimes
+WHERE Date_OCC != ''
+GROUP BY Year
+ORDER BY Year ASC;
+
+-- Query 2: Top 10 crime locations (Part 1-2)
 SELECT Premis_Desc, COUNT(*) AS Total_Crimes
 FROM crimes
 WHERE Premis_Desc != ''
@@ -50,13 +67,7 @@ GROUP BY Premis_Desc
 ORDER BY Total_Crimes DESC
 LIMIT 10;
 
-//Query 2
-SELECT Area_Name, COUNT(*) AS Total_Crimes
-FROM crimes
-GROUP BY Area_Name
-ORDER BY Total_Crimes DESC;
-
-//Query 3
+-- Query 3: Top 10 crime types
 SELECT Crm_Cd_Desc, COUNT(*) AS Occurrences
 FROM crimes
 WHERE Date_OCC != ''
