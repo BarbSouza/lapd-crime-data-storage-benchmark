@@ -1,8 +1,8 @@
 -- MySQL.sql
 -- MySQL queries for crime data analysis
---Author: Barbara
---Dataset: Crime Data from Los Angeles Police Department
---Description: Creates crimedb, loads crime CSV data, and runs 3 queries
+-- Author: Barbara
+-- Dataset: Crime Data from Los Angeles Police Department
+-- Description: Creates crimedb, loads crime CSV data, and runs 3 queries
 
 -- Create database and table
 CREATE DATABASE IF NOT EXISTS crimedb;
@@ -58,11 +58,10 @@ WHERE Date_OCC != ''
 GROUP BY Year
 ORDER BY Year ASC;
 
--- Query 2: Top 10 crime locations (Part 1-2)
+-- Query 2: Top 10 crime locations
 SELECT Premis_Desc, COUNT(*) AS Total_Crimes
 FROM crimes
 WHERE Premis_Desc != ''
-AND Part_1_2 = '1'
 GROUP BY Premis_Desc
 ORDER BY Total_Crimes DESC
 LIMIT 10;
